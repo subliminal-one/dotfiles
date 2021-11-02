@@ -16,6 +16,7 @@ return packer.startup(function()
   use {
     'nvim-treesitter/nvim-treesitter',
     'nvim-treesitter/playground',
+    'nvim-treesitter/nvim-treesitter-angular',
   }
 
   use {
@@ -23,7 +24,7 @@ return packer.startup(function()
     requires = { 'nvim-lua/plenary.nvim', }
   }
 
-  use { 
+  use {
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/vim-vsnip',
@@ -45,5 +46,7 @@ return packer.startup(function()
   use 'nvim-lualine/lualine.nvim'
   use 'rhysd/git-messenger.vim'
   use 'cappyzawa/trim.nvim'
+  use '/home/mmyers/projects/nvim/flatliner.nvim'
+  use '/home/mmyers/projects/nvim/boxer.nvim'
 
 end)
