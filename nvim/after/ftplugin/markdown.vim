@@ -19,6 +19,7 @@ setlocal showbreak=
 setlocal breakindent
 setlocal breakindentopt=min:20,shift:2
 setlocal modelineexpr
+setlocal foldlevelstart=1
 
 let g:markdown_syntax_conceal=1
 let g:markdown_fenced_languages = ['php', 'sql', 'javascript']

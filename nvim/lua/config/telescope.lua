@@ -8,6 +8,9 @@ local open_file = {
     actions.select_default:enhance({
       post = function()
         vim.cmd(":normal! zx")
+        if (vim.b.foldlevelstart) then
+          vim.cmd(string.format(':setlocal foldlevel %s', vim.b.foldlevelstart))
+        end
       end,
     })
     return true
@@ -35,6 +38,7 @@ telescope.setup({
       },
     },
   },
+
   pickers = {
     buffers = open_file,
     find_files = open_file,
@@ -42,9 +46,21 @@ telescope.setup({
     live_grep = open_file,
     oldfiles = open_file,
   },
+
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "ignore_case",        -- or "ignore_case" or "respect_case"
+    }
+  },
+
 })
 
-local opts  = { noremap = true, silent = false }
+require('telescope').load_extension('fzf')
+
+local opts  = { noremap = true, silent = true }
 local remap = vim.api.nvim_set_keymap
 
 remap("n", "<leader>l", ":Telescope find_files previewer=false <CR>", opts)
