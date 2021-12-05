@@ -32,18 +32,32 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
+local lspcontainers = require('lspcontainers');
 lspconfig.intelephense.setup {
   before_init = function(params)
       params.processId = vim.NIL
   end,
-  -- TODO Figure out a way to mount my licenceKey so I don't get an activation message on each load.
-  -- init_options = {
-  --     licenceKey = vim.fn.getenv('INTELEPHENSE_KEY'),
-  -- },
-  cmd = require'lspcontainers'.command('intelephense'),
-  capabilities = capabilities,
   on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern("composer.json", ".git", vim.fn.getcwd()),
+  capabilities = capabilities,
+  cmd = lspcontainers.command('intelephense', {
+    image = "lspcontainers/intelephense:1.7.1",
+    cmd = function (runtime, workdir, image)
+      local volume = workdir .. ":" .. workdir .. ":ro"
+
+      return {
+        runtime,
+        "container",
+        "run",
+        "--interactive",
+        "--rm",
+        "--workdir=" .. workdir,
+        "--volume=" .. volume,
+        "--volume=/home/mmyers/documents/intelephense:/root/intelephense:ro",
+        image
+      }
+    end,
+  }),
+  root_dir = lspconfig.util.root_pattern(".git", "composer.json", vim.fn.getcwd()),
 }
 
 lspconfig.tsserver.setup {

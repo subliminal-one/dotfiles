@@ -6,14 +6,14 @@ FILE="$DEST/screenshot-$DATE.png"
 
 case $1 in
   '-a')
-    gnome-screenshot -a $FILE
+    gnome-screenshot -a -f $FILE
     ;;
 
   '-w')
-    gnome-screenshot -w $FILE
+    gnome-screenshot -w -f $FILE
     ;;
 
   *)
-    gnome-screenshot $FILE
+    gnome-screenshot -f $FILE
     ;;
 esac

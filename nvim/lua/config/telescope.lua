@@ -19,7 +19,7 @@ local open_file = {
 
 telescope.setup({
   defaults = {
-    file_ignore_patterns = { ".git" },
+    file_ignore_patterns = { ".git", "vendor", "node_modules" },
     layout_strategy = "horizontal",
     layout_config = {
       horizontal = {
@@ -63,11 +63,12 @@ require('telescope').load_extension('fzf')
 local opts  = { noremap = true, silent = true }
 local remap = vim.api.nvim_set_keymap
 
-remap("n", "<leader>l", ":Telescope find_files previewer=false <CR>", opts)
+remap("n", "<leader>l", ":Telescope find_files previewer=false<CR>", opts)
 remap("n", "<leader>L", ":Telescope find_files cwd=%:h previewer=false <CR>", opts)
 remap("n", "<leader>;", ":Telescope buffers previewer=false <CR>", opts)
 remap("n", "<leader>fs", ":Telescope lsp_document_symbols symbols='method' <CR>", opts)
 remap("n", "<leader>fd", ":Telescope lsp_document_diagnostics <CR>", opts)
+remap("n", "<leader>fb", ":Telescope file_browser <CR>", opts)
 remap("n", "<leader>f.", ":Telescope find_files cwd=~/.dotfiles <CR>", opts)
 remap("n", "<leader>fo", ":Telescope oldfiles <CR>", opts)
 remap("n", "<leader>fgr", ":Telescope live_grep <CR>", opts)

@@ -6,4 +6,21 @@
 -- vim.g.edge_diagnostic_line_highlight = 0
 -- vim.g.edge_diagnostic_virtual_text   = 'grey'
 
-vim.cmd('colorscheme edge')
+--vim.cmd('colorscheme edge')
+require('onenord').setup({
+  borders = true,
+  italics = {
+    comments = false,
+    strings = false,
+    keywords = false,
+    functions = false,
+    variables = false,
+  },
+  disable = {
+    background = false,
+    cursorline = false,
+    eob_lines = false,
+  },
+});
+
+vim.cmd('colorscheme onenord')

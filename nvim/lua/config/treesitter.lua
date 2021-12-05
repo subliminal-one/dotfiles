@@ -11,5 +11,13 @@ treesitter.setup({
   },
 });
 
-local php_folds = '[ (comment) (method_declaration) (array_creation_expression) ] @fold'
+local php_folds = [[
+  [
+    (comment)
+    (method_declaration)
+    (array_creation_expression)
+    (anonymous_function_creation_expression)
+  ] @fold
+]]
+
 vim.treesitter.set_query('php', 'folds', php_folds)

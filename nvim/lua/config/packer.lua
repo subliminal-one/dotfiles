@@ -15,6 +15,10 @@ return packer.startup(function()
 
   use {
     'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  }
+
+  use {
     'nvim-treesitter/playground',
     'nvim-treesitter/nvim-treesitter-angular',
   }
@@ -38,16 +42,19 @@ return packer.startup(function()
       'f3fora/cmp-spell',
     },
   }
+  use 'rafamadriz/friendly-snippets'
 
   use 'neovim/nvim-lspconfig'
   use 'lspcontainers/lspcontainers.nvim'
-  use 'terrortylor/nvim-comment'
+  use 'numToStr/Comment.nvim'
   use 'godlygeek/tabular'
+
   use 'sainnhe/edge'
+  use 'rmehri01/onenord.nvim'
+
   use 'nvim-lualine/lualine.nvim'
   use 'rhysd/git-messenger.vim'
   use 'cappyzawa/trim.nvim'
   use '/home/mmyers/projects/nvim/flatliner.nvim'
   use '/home/mmyers/projects/nvim/boxer.nvim'
-
 end)
