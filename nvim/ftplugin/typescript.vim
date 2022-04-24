@@ -1,6 +1,7 @@
 let b:did_ftplugin=1
-setlocal textwidth=115
+"setlocal textwidth=115
 setlocal colorcolumn=80,120
-setlocal tabstop=4 softtabstop=4 shiftwidth=4
+"setlocal tabstop=2 softtabstop=2 shiftwidth=2
 setlocal foldlevelstart=1
-setlocal formatoptions+=or
+setlocal formatoptions+=ro
+"setlocal formatoptions-=t

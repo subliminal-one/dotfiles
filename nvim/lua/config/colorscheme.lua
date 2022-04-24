@@ -1,26 +1,27 @@
--- vim.g.edge_style                     = 'neon'
--- vim.g.edge_show_eob                  = 1
--- vim.g.edge_enable_italic             = 1
--- vim.g.edge_menu_selection_background = 'purple'
--- vim.g.edge_diagnostic_text_highlight = 0
--- vim.g.edge_diagnostic_line_highlight = 0
--- vim.g.edge_diagnostic_virtual_text   = 'grey'
+-- vim.g.everforest_background = 'soft'
+-- vim.g.everforest_enable_italic = 0
+-- vim.cmd('colorscheme everforest')
 
---vim.cmd('colorscheme edge')
-require('onenord').setup({
-  borders = true,
-  italics = {
-    comments = false,
-    strings = false,
-    keywords = false,
-    functions = false,
-    variables = false,
+require('onedark').setup({
+  style = 'warm',
+  code_style = {
+    comments = 'none',
+    keywords = 'none',
+    functions = 'none',
+    strings = 'none',
+    variables = 'none'
   },
-  disable = {
-    background = false,
-    cursorline = false,
-    eob_lines = false,
+  -- colors = {
+  --   fg = '#bcbfc4',
+    -- grey = '#78797d',
+  --   cyan = '#53a5b9',
+  -- },
+  highlights = {
+  --   Folded = { fg = '$light_grey', bg = '$bg1' },
+  --   TSConstructor = { fg = '$yellow', fmt = 'none' },
+  --   TSType = { fg = '$orange' },
+    TelescopePromptBorder = { fg = '$grey' },
+    TelescopeResultsBorder = { fg = '$grey' },
   },
-});
-
-vim.cmd('colorscheme onenord')
+})
+vim.cmd('colorscheme onedark')

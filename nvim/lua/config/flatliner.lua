@@ -4,7 +4,7 @@ flatliner.setup({
   filetypes = {
     markdown = {
       pattern = "^[#]+",
-      style = "stacked",
+      style = "tree",
     },
   },
 })

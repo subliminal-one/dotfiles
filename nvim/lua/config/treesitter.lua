@@ -1,23 +1,30 @@
 local treesitter = require('nvim-treesitter.configs');
 
 treesitter.setup({
-  ensure_installed = "maintained",
+  ignore_install = { "swift", "angular", "godot_resource" },
+
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = true,
+    additional_vim_regex_highlighting = false,
   },
+
   indent = {
-    enable = false,
+    enable = true,
+  },
+
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
   },
 });
 
-local php_folds = [[
-  [
-    (comment)
-    (method_declaration)
-    (array_creation_expression)
-    (anonymous_function_creation_expression)
-  ] @fold
-]]
-
-vim.treesitter.set_query('php', 'folds', php_folds)
+-- local php_folds = [[
+--   [
+--     (comment)
+--     (method_declaration)
+--     (array_creation_expression)
+--     (anonymous_function_creation_expression)
+--   ] @fold
+-- ]]
+--
+-- vim.treesitter.set_query('php', 'folds', php_folds)

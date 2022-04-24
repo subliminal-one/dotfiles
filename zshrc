@@ -7,9 +7,9 @@ setopt prompt_subst
 HISTSIZE=5000
 HISTFILE=~/.cache/zsh_history
 SAVEHIST=5000
-PATH=~/.bin:$PATH
 COMMON_PROMPT_SYMBOL="➤"
 PROMPT='%n@%m %~ $(git_prompt) %F{blue}$COMMON_PROMPT_SYMBOL%f '
+EDITOR=nvim
 
 INCLUDES=(
   /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

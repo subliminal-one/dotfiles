@@ -29,43 +29,30 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local lspcontainers = require('lspcontainers');
-lspconfig.intelephense.setup {
-  before_init = function(params)
-      params.processId = vim.NIL
-  end,
+lspconfig.intelephense.setup{
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = lspcontainers.command('intelephense', {
-    image = "lspcontainers/intelephense:1.7.1",
-    cmd = function (runtime, workdir, image)
-      local volume = workdir .. ":" .. workdir .. ":ro"
-
-      return {
-        runtime,
-        "container",
-        "run",
-        "--interactive",
-        "--rm",
-        "--workdir=" .. workdir,
-        "--volume=" .. volume,
-        "--volume=/home/mmyers/documents/intelephense:/root/intelephense:ro",
-        image
-      }
-    end,
-  }),
-  root_dir = lspconfig.util.root_pattern(".git", "composer.json", vim.fn.getcwd()),
+  init_options = {
+    licenceKey = vim.env.INTELEPHENSE_KEY,
+  },
 }
 
-lspconfig.tsserver.setup {
-  before_init = function(params)
-      params.processId = vim.NIL
-  end,
-  cmd = require'lspcontainers'.command('tsserver'),
-  capabilities = capabilities,
-  on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern(".git", vim.fn.getcwd()),
+local servers = {
+  'tsserver',
+  -- 'volar',
+  -- 'tailwindcss',
+  'eslint',
+  'html',
+  'cssls',
+  -- 'jsonls',
 }
+
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end

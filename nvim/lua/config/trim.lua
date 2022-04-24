@@ -1,3 +1,3 @@
 require('trim').setup({
-  disable = {'markdown', 'asciidoc', 'sql'},
+  disable = {'typescriptreact', 'markdown', 'asciidoc', 'sql'},
 })
