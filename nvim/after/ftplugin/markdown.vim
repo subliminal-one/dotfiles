@@ -10,3 +10,4 @@ setlocal wrap
 setlocal linebreak
 setlocal breakindent
 setlocal breakindentopt=min:20,shift:2
+setlocal shiftwidth=2 tabstop=2
