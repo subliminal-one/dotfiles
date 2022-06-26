@@ -5,10 +5,14 @@
     auto = true
     ui = true
 [push]
-	default = matching
+    default = matching
 [core]
-	editor = nvim
+    editor = nvim
 [config]
-	editor = nvim
+    editor = nvim
 [pull]
-	rebase = false
+    rebase = false
+[merge]
+	tool = nvimdiff
+[mergetool]
+	keepBackup = false

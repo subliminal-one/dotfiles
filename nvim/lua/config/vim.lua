@@ -1,5 +1,3 @@
-vim.g.mapleader        = ' '
-
 vim.opt.clipboard:append('unnamedplus')
 vim.opt.completeopt    = 'menu,menuone,noselect'
 vim.opt.conceallevel   = 2
@@ -28,4 +26,4 @@ vim.opt.wildmode       = 'longest:full,full'
 vim.opt.wrap           = false
 vim.opt.writebackup    = false
 vim.opt.mouse          = 'a'
-vim.opt.laststatus     = 3
+vim.opt.laststatus     = 2

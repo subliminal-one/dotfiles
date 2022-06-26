@@ -1,0 +1,25 @@
+extends typescript
+
+snippet rfc "React Functional Component"
+    export const ${1:ComponentName} = ({${2:props}}: ${3:Type}) => {
+        ${0:${VISUAL}}
+
+        return (
+        )
+    }
+
+snippet useS "React useState Hook"
+    const [${1:state}, ${2:setter}] = useState<${3:type}>(${4:initialValue});
+
+snippet useE "React useEffect Hook"
+    useEffect(() => {
+        ${0:${VISUAL}}
+    }, [${1:dependencies}]);
+
+snippet useCb "React useCallback hook"
+    const ${1:name} = useCallback(
+        () => {
+            ${0:${VISUAL}}
+        },
+        [${2:dependencies}]
+    );

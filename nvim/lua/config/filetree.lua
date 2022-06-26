@@ -3,7 +3,7 @@ local neotree = require('neo-tree');
 neotree.setup({
   close_if_last_window = false,
   enable_git_status = false,
-  enable_diagnostics = true,
+  enable_diagnostics = false,
   respect_gitignore = false,
   filesystem = {
     filtered_items = {
@@ -12,5 +12,3 @@ neotree.setup({
     },
   },
 })
-
-vim.keymap.set('n', '\\', ':Neotree toggle reveal<CR>');
