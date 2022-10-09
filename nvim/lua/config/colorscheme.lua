@@ -12,5 +12,7 @@ require('onedark').setup{
     TelescopeResultsBorder = { fg = '$grey' },
   },
 }
-
 vim.cmd('colorscheme onedark')
+
+--[[ vim.g.everforest_background = 'hard'; ]]
+--[[ vim.cmd('colorscheme everforest') ]]

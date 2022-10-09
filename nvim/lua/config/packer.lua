@@ -8,13 +8,14 @@ return packer.startup(function()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    { 'nvim-treesitter/playground' }
+    { 'nvim-treesitter/playground' },
   }
 
   -- lsp
   use {
     'neovim/nvim-lspconfig',
     { 'j-hui/fidget.nvim', config = function() require('fidget').setup(); end, },
+    { 'jose-elias-alvarez/null-ls.nvim' },
   }
 
   -- telescope
@@ -32,7 +33,7 @@ return packer.startup(function()
       'dcampos/cmp-snippy',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
+      --[[ 'hrsh7th/cmp-path', ]]
       'hrsh7th/cmp-nvim-lua',
     },
   }
@@ -58,7 +59,8 @@ return packer.startup(function()
   use {
     'navarasu/onedark.nvim',
     'nvim-lualine/lualine.nvim',
-    'preservim/vim-markdown',
+    'sainnhe/everforest',
+    'Yazeed1s/minimal.nvim',
   }
 
   -- utilties
@@ -66,7 +68,7 @@ return packer.startup(function()
     'godlygeek/tabular',
     'rhysd/git-messenger.vim',
     'cappyzawa/trim.nvim',
-    'gpanders/editorconfig.nvim',
+    -- 'gpanders/editorconfig.nvim',
   }
 
   -- testing

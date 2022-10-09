@@ -1,7 +1,7 @@
 local treesitter = require('nvim-treesitter.configs');
 
 treesitter.setup({
-  ignore_install = { "swift", "angular", "godot_resource", "markdown" },
+  ignore_install = { "swift", "angular", "godot_resource" },
 
   highlight = {
     enable = true,
@@ -18,7 +18,6 @@ treesitter.setup({
   },
 });
 
-    -- (anonymous_function_creation_expression)
 local php_folds = [[
   [
     (comment)
@@ -27,3 +26,10 @@ local php_folds = [[
   ] @fold
 ]]
 vim.treesitter.set_query('php', 'folds', php_folds)
+
+local markdown_folds = [[
+  [
+    (section)
+  ] @fold
+]]
+vim.treesitter.set_query('markdown', 'folds', markdown_folds)

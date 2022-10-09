@@ -26,4 +26,6 @@ vim.opt.wildmode       = 'longest:full,full'
 vim.opt.wrap           = false
 vim.opt.writebackup    = false
 vim.opt.mouse          = 'a'
-vim.opt.laststatus     = 2
+vim.opt.laststatus     = 3
+vim.opt.cmdheight      = 0
+vim.opt.spelloptions   = 'camel'
