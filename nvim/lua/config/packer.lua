@@ -4,12 +4,13 @@ local packer = require('packer')
 return packer.startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
 
+  use { 'lewis6991/impatient.nvim' }
+
   -- treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    { 'nvim-treesitter/playground' },
-  }
+use {
+  'nvim-treesitter/nvim-treesitter',
+  { 'nvim-treesitter/playground' },
+}
 
   -- lsp
   use {

@@ -1,3 +1,4 @@
+require('impatient')
 require('config/vim')
 require('config/packer')
 require('config/treesitter')
