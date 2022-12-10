@@ -12,9 +12,11 @@ PROMPT='%n@%m %~ $(git_prompt) %F{blue}$COMMON_PROMPT_SYMBOL%f '
 EDITOR=nvim
 
 INCLUDES=(
-  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  ~/.zshrc.local
+    /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    /usr/share/fzf/key-bindings.zsh
+    /usr/share/fzf/completion.zsh
+    ~/.zshrc.local
 )
 
 for i in $INCLUDES; do
@@ -24,15 +26,15 @@ for i in $INCLUDES; do
 done
 
 git_prompt() {
-  branch=$(git branch --show-current 2>/dev/null)
+    branch=$(git branch --show-current 2>/dev/null)
 
-  if [ $branch ]; then
-    modified=$(git status --porcelain 2>/dev/null | wc -l)
-    if [ $modified -gt 0 ]; then
-        branch="$branch:$modified"
+    if [ $branch ]; then
+        modified=$(git status --porcelain 2>/dev/null | wc -l)
+        if [ $modified -gt 0 ]; then
+            branch="$branch:$modified"
+        fi
+        echo "($branch)"
     fi
-    echo "($branch)"
-  fi
 }
 
 alias ls='ls --color=auto'

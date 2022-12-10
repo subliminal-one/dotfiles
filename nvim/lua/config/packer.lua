@@ -7,10 +7,10 @@ return packer.startup(function()
   use { 'lewis6991/impatient.nvim' }
 
   -- treesitter
-use {
-  'nvim-treesitter/nvim-treesitter',
-  { 'nvim-treesitter/playground' },
-}
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    { 'nvim-treesitter/playground' },
+  }
 
   -- lsp
   use {
@@ -34,7 +34,7 @@ use {
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
-      --[[ 'hrsh7th/cmp-path', ]]
+      'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lua',
     },
   }
@@ -45,7 +45,8 @@ use {
     branch = 'v2.x',
     requires = {
       'nvim-lua/plenary.nvim',
-      'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons',
+      --[[ 'kyazdani42/nvim-web-devicons', ]]
       'MunifTanjim/nui.nvim'
     },
   }
@@ -71,11 +72,4 @@ use {
     'cappyzawa/trim.nvim',
     -- 'gpanders/editorconfig.nvim',
   }
-
-  -- testing
-  use {
-    'mfussenegger/nvim-dap' ,
-    'rcarriga/nvim-dap-ui',
-  }
-
 end)
