@@ -32,11 +32,11 @@ telescope.setup{
 require('telescope').load_extension('fzf')
 
 -- Fix folding
-vim.api.nvim_create_autocmd('BufRead', {
-  callback = function()
-    vim.api.nvim_create_autocmd('BufWinEnter', {
-      once = true,
-      command = 'normal! zx'
-    })
-  end
-})
+--[[ vim.api.nvim_create_autocmd('BufRead', { ]]
+--[[   callback = function() ]]
+--[[     vim.api.nvim_create_autocmd('BufWinEnter', { ]]
+--[[       once = true, ]]
+--[[       command = 'normal! zx' ]]
+--[[     }) ]]
+--[[   end ]]
+--[[ }) ]]

@@ -1,0 +1,4 @@
+;; extends
+(
+ (string) @string @nospell
+)

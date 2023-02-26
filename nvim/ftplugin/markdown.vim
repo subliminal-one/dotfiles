@@ -1,6 +1,5 @@
 let b:did_ftplugin = 1
 
-setlocal spell
 setlocal shiftwidth=2 tabstop=2
 setlocal wrap
 setlocal formatoptions=cor

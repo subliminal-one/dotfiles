@@ -38,3 +38,10 @@ git_prompt() {
 }
 
 alias ls='ls --color=auto'
+
+# bun completions
+[ -s "/home/mmyers/.bun/_bun" ] && source "/home/mmyers/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

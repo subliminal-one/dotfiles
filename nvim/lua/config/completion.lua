@@ -13,13 +13,12 @@ cmp.setup{
   mapping = cmp.mapping.preset.insert({
     ['<C-y>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp', group_index = 1, max_item_count = 15, option = { keyword_length = 3 } },
     { name = 'luasnip' },
-    { name = 'buffer', keyword_length = 5 },
-    { name = 'path' },
-    { name = 'nvim_lua' },
+    { name = 'nvim_lua', group_index = 1 },
+    { name = 'buffer', group_index = 2, option = { keyword_length = 4 } },
   }),
 }

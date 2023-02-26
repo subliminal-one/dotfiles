@@ -38,8 +38,9 @@ if [ $SESSION == "project" ]; then
 fi
 
 if [ $SESSION = "notes" ]; then
-  cd ~/Documents/notes
+  cd ~/notes
   tmux new-session -d -s "notes"
+  tmux send-keys "cd ~/Documents/notes" C-m
   tmux send-keys "nvim todo.md" C-m
   tmux new-window
   tmux select-window -t 1
