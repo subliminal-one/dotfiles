@@ -96,16 +96,16 @@ vim.keymap.set('n', '<leader>fr', function() builtin.live_grep() end)
 vim.keymap.set('n', '<leader>fdl', function() builtin.find_files({ cwd = '%:h' }) end)
 vim.keymap.set('n', '<leader>fdd', function() builtin.diagnostics() end)
 vim.keymap.set('n', '<leader>fds', function() builtin.lsp_document_symbols() end)
-
-vim.keymap.set('n', '<leader>F', function()
-  require('conform').format({ async = true, lsp_fallback = true, bufnr = 0 })
-end)
-
 vim.keymap.set('n', '<leader>f.', function() builtin.find_files({ cwd = '~/.dotfiles' }) end)
 
-vim.keymap.set('n', '\\', vim.cmd.NvimTreeFindFileToggle, opts);
+vim.keymap.set('n', '<leader>F', function()
+  local result = require('conform').format({ async = false, lsp_fallback = true, bufnr = 0 })
+  if (result == true) then
+    vim.cmd.write()
+  end
+end)
 
-vim.keymap.set('n', '<leader>gb', vim.cmd.GitMessenger, opts);
+vim.keymap.set('n', '\\', vim.cmd.NvimTreeFindFileToggle, opts);
 
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)

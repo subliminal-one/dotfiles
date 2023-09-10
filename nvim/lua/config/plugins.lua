@@ -16,7 +16,7 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter',
     config = function()
       require("nvim-treesitter.configs").setup({
-        ignore_install = { "swift", "angular", "godot_resource", "gleam", "wgsl", "comment" },
+        ignore_install = { "swift", "angular", "godot_resource", "gleam", "wgsl" },
 
         highlight = {
           enable = true,
