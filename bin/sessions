@@ -1,0 +1,128 @@
+#!/usr/bin/env sh
+
+SESSIONS=(
+  notes
+  welf-health
+  wellness
+)
+
+function _should_create() {
+  tmux has-session -t $1 2>/dev/null
+  if [ $? != 0 ]; then
+    return 0
+  fi
+
+  return 1
+}
+
+function _create() {
+  tmux new-session -d -s $1
+}
+
+function _attach() {
+  tmux attach-session -t $1
+}
+
+SESSION=$(printf "%s\n" "${SESSIONS[@]}" | fzf --reverse)
+if [ "$SESSION" = "" ]; then
+  exit
+fi
+
+if [ $SESSION == "notes" ]; then
+  name='notes'
+
+  if _should_create "$name"; then
+    _create $name
+    tmux send-keys "cd ~/Documents/notes" C-m
+    tmux send-keys "nvim todo.md" C-m
+    tmux new-window
+    tmux select-window -t 1
+  fi
+
+  _attach $name
+  exit
+fi
+
+if [ $SESSION == "welf-health" ]; then
+  backend="welf-health-be"
+  frontend="welf-health-fe"
+
+  if _should_create "$backend"; then
+    _create $backend
+    tmux send-keys "cd ~/projects/welf/welf-health/health-be" C-m
+    tmux send-keys "nvim" C-m
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux move-window -t 9
+    tmux send-keys "docker-compose up"
+    tmux select-window -t 1
+  fi
+
+  if _should_create "$frontend"; then
+    _create $frontend
+    tmux send-keys "cd ~/projects/welf/welf-health/health-fe" C-m
+    tmux send-keys "nvim" C-m
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux move-window -t 9
+    tmux send-keys "npm run dev up"
+    tmux select-window -t 1
+  fi
+
+  _attach $backend
+  exit
+fi
+
+if [ $SESSION == "wellness" ]; then
+  notes="wl-notes"
+  explorerBe="wl-explorer-be"
+  explorerFe="wl-explorer-fe"
+  widgets="wl-widgets"
+
+  if _should_create "$notes"; then
+    cd ~/projects/simplyphp/wellness/notes
+    _create $notes
+    tmux send-keys "nvim -O2 notes.md scratch.md" C-m
+    tmux new-window
+    tmux select-window -t 1
+  fi
+
+  if _should_create "$explorerBe"; then
+    cd ~/projects/simplyphp/wellness/wl-explorer-be
+    _create $explorerBe
+    tmux send-keys "nvim"
+    tmux new-window
+    tmux new-window
+    tmux send-keys "docker exec -it wl-explorer-be-laravel.test-1 bash"
+    tmux new-window
+    tmux move-window -t 9
+    tmux send-keys "docker-compose up"
+    tmux select-window -t 1
+  fi
+
+  if _should_create "$explorerFe"; then
+    cd ~/projects/simplyphp/wellness/wl-explorer-fe
+    _create $explorerFe
+    tmux send-keys "nvim"
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux move-window -t 9
+    tmux send-keys "npm run dev"
+    tmux select-window -t 1
+  fi
+
+  if _should_create "$widgets"; then
+    cd ~/projects/simplyphp/wellness/wl-widgets-fe
+    _create $widgets
+    tmux send-keys "nvim"
+    tmux new-window
+    tmux new-window
+    tmux select-window -t 1
+  fi
+
+  _attach $notes
+  exit
+fi

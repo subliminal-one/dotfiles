@@ -2,15 +2,25 @@ local telescope = require('telescope')
 local actions = require('telescope.actions');
 
 telescope.setup{
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        },
+      },
+    },
+  },
   defaults = {
     mappings = {
       i = {
         ["<C-["] = actions.close,
-        ["<esc>"] = actions.close,
+        ["<ESC>"] = actions.close,
+        ["<C-u>"] = false,
       },
       n = {
         ["<C-["] = actions.close,
-        ["<esc>"] = actions.close,
+        ["<ESC>"] = actions.close,
       },
     },
     layout_config = {
@@ -25,18 +35,12 @@ telescope.setup{
       override_generic_sorter = true,  -- override the generic sorter
       override_file_sorter = true,     -- override the file sorter
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case" the default case_mode is "smart_case"
-    }
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown()
+    },
   }
 }
 
 require('telescope').load_extension('fzf')
-
--- Fix folding
---[[ vim.api.nvim_create_autocmd('BufRead', { ]]
---[[   callback = function() ]]
---[[     vim.api.nvim_create_autocmd('BufWinEnter', { ]]
---[[       once = true, ]]
---[[       command = 'normal! zx' ]]
---[[     }) ]]
---[[   end ]]
---[[ }) ]]
+require("telescope").load_extension("ui-select")

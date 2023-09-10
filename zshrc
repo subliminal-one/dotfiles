@@ -7,9 +7,11 @@ setopt prompt_subst
 HISTSIZE=5000
 HISTFILE=~/.cache/zsh_history
 SAVEHIST=5000
-COMMON_PROMPT_SYMBOL="➤"
+COMMON_PROMPT_SYMBOL=">"
 PROMPT='%n@%m %~ $(git_prompt) %F{blue}$COMMON_PROMPT_SYMBOL%f '
-EDITOR=nvim
+
+export EDITOR=nvim
+bindkey -e
 
 INCLUDES=(
     /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -39,9 +41,10 @@ git_prompt() {
 
 alias ls='ls --color=auto'
 
-# bun completions
-[ -s "/home/mmyers/.bun/_bun" ] && source "/home/mmyers/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# pnpm
+export PNPM_HOME="/home/mmyers/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
