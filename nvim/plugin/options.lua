@@ -1,0 +1,42 @@
+local opt = vim.opt
+
+opt.clipboard = "unnamedplus"
+opt.expandtab = true
+opt.formatoptions:remove "o"
+opt.ignorecase = true
+opt.inccommand = "split"
+opt.number = true
+opt.pumheight = 20
+opt.relativenumber = true
+opt.shada = { "'10", "<0", "s10", "h" }
+opt.signcolumn = "yes"
+opt.smartcase = true
+opt.splitbelow = true
+opt.splitright = true
+
+-- vim.opt.conceallevel = 2
+-- vim.opt.cursorline = true
+-- vim.opt.fillchars = "fold: "
+-- vim.opt.foldenable = false
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.list = true
+-- vim.opt.listchars = "eol:↵,trail:.,tab:>-"
+-- vim.opt.shiftround = true
+-- vim.opt.shiftwidth = 4
+-- vim.opt.signcolumn = "auto"
+-- vim.opt.softtabstop = 4
+-- vim.opt.swapfile = false
+-- vim.opt.tabstop = 4
+-- vim.opt.termguicolors = true
+-- vim.opt.updatetime = 300
+-- vim.opt.wildmenu = true
+-- vim.opt.wildmode = "longest:full,full"
+-- vim.opt.wrap = false
+-- vim.opt.writebackup = false
+-- vim.opt.mouse = "a"
+-- vim.opt.laststatus = 2
+-- vim.opt.cmdheight = 0
+-- vim.opt.spell = true
+-- vim.opt.spelloptions = "camel"
+-- vim.opt.jumpoptions = "stack"

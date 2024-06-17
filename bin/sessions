@@ -82,7 +82,7 @@ if [ $SESSION == "wellness" ]; then
   widgets="wl-widgets"
 
   if _should_create "$notes"; then
-    cd ~/projects/simplyphp/wellness/notes
+    cd ~/projects/wellness/notes
     _create $notes
     tmux send-keys "nvim -O2 notes.md scratch.md" C-m
     tmux new-window
@@ -90,7 +90,7 @@ if [ $SESSION == "wellness" ]; then
   fi
 
   if _should_create "$explorerBe"; then
-    cd ~/projects/simplyphp/wellness/wl-explorer-be
+    cd ~/projects/wellness/wl-explorer-be
     _create $explorerBe
     tmux send-keys "nvim"
     tmux new-window
@@ -103,7 +103,7 @@ if [ $SESSION == "wellness" ]; then
   fi
 
   if _should_create "$explorerFe"; then
-    cd ~/projects/simplyphp/wellness/wl-explorer-fe
+    cd ~/projects/wellness/wl-explorer-fe
     _create $explorerFe
     tmux send-keys "nvim"
     tmux new-window
@@ -115,7 +115,7 @@ if [ $SESSION == "wellness" ]; then
   fi
 
   if _should_create "$widgets"; then
-    cd ~/projects/simplyphp/wellness/wl-widgets-fe
+    cd ~/projects/wellness/wl-widgets-fe
     _create $widgets
     tmux send-keys "nvim"
     tmux new-window

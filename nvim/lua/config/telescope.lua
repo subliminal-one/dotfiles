@@ -1,5 +1,6 @@
 local telescope = require('telescope')
-local actions = require('telescope.actions');
+local builtin = require("telescope.builtin")
+local actions = require('telescope.actions')
 
 telescope.setup{
   pickers = {
@@ -44,3 +45,22 @@ telescope.setup{
 
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("ui-select")
+
+-- Telescope
+vim.keymap.set("n", "<leader>ss", "<cmd> Telescope<CR>")
+vim.keymap.set("n", "<leader>sf", function() builtin.find_files() end)
+vim.keymap.set("n", "<leader>sl", function() builtin.find_files({ cwd = "%:h" }) end)
+vim.keymap.set("n", "<leader>sb", function() builtin.buffers({ sort_mru = true }) end)
+vim.keymap.set("n", "<leader>so", function() builtin.oldfiles() end)
+vim.keymap.set("n", "<leader>sd", function() builtin.diagnostics() end)
+vim.keymap.set("n", "<leader>s.", function() builtin.find_files({ cwd = "~/.dotfiles" }) end)
+
+vim.keymap.set('n', '<leader>/', function()
+  builtin.current_buffer_fuzzy_find({
+    sorting_strategy = "ascending",
+    winblend = 10,
+    previewer = false,
+    layout_config = { width = 0.5, height = 0.8, },
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
