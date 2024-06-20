@@ -14,8 +14,6 @@ return {
           },
         },
       })
-
-      vim.keymap.set("n", "\\", vim.cmd.NvimTreeFindFileToggle, opts)
     end,
   },
 }

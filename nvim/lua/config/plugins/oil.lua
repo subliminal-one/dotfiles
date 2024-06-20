@@ -9,8 +9,6 @@ return {
           ["<C-h>"] = false,
         },
       })
-
-      vim.keymap.set("n", "-", "<cmd>Oil<cr>")
     end,
   },
 }

@@ -3,21 +3,6 @@ return {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
-    keys = {
-      {
-        "<leader>f",
-        function()
-          local result =
-            require("conform").format({ async = false, lsp_fallback = true })
-
-          if result == true then
-            vim.cmd.write()
-          end
-        end,
-        mode = "",
-        desc = "Format buffer",
-      },
-    },
     opts = {
       formatters_by_ft = {
         css = { "prettier", "trim_whitespace", "trim_newlines" },

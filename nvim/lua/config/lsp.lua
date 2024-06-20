@@ -17,12 +17,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
 
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+    vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts)
     vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
     vim.keymap.set("n", "<space>fa", "<cmd>EslintFixAll<CR>", opts)
   end,
