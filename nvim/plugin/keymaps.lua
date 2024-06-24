@@ -1,43 +1,33 @@
-local set = vim.keymap.set
 local opts = { silent = true, nowait = true }
 local telescope = require("telescope.builtin")
 local utils = require("config.utils")
 
 vim.keymap.del("n", "grr")
 
-set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-set("x", "p", '"_dP')
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+vim.keymap.set("x", "p", '"_dP')
 
-set("n", "<c-h>", "<c-w>h", opts)
-set("n", "<c-l>", "<c-w>l", opts)
-set("n", "<c-j>", "<c-w>j", opts)
-set("n", "<c-k>", "<c-w>k", opts)
+vim.keymap.set("n", "<c-h>", "<c-w>h", opts)
+vim.keymap.set("n", "<c-l>", "<c-w>l", opts)
+vim.keymap.set("n", "<c-j>", "<c-w>j", opts)
+vim.keymap.set("n", "<c-k>", "<c-w>k", opts)
 
-set("n", "<space>e", vim.diagnostic.open_float, opts)
-set("n", "<space>q", vim.diagnostic.setloclist, opts)
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
-set("n", "<Tab>", function() vim.cmd("tabnext") end, opts)
-set("n", "<S-Tab>", function() vim.cmd("tabprev") end, opts)
+vim.keymap.set("n", "<Tab>", function() vim.cmd("tabnext") end, opts)
+vim.keymap.set("n", "<S-Tab>", function() vim.cmd("tabprev") end, opts)
 
 -- helpers
 
 local function project_files()
-  local dir = utils.find_project_dir()
-  telescope.find_files({ cwd = dir })
+  local cwd = utils.find_project_dir()
+  telescope.find_files({ cwd = cwd })
 end
 
 local function project_buffers()
-  local dir = utils.find_project_dir()
-  telescope.buffers({ cwd = dir, sort_mru = true })
-end
-
-local function search_buffer()
-  telescope.current_buffer_fuzzy_find({
-    sorting_strategy = "ascending",
-    winblend = 10,
-    previewer = false,
-    layout_config = { width = 0.5, height = 0.8 },
-  })
+  local cwd = utils.find_project_dir()
+  telescope.buffers({ cwd = cwd })
 end
 
 local function format()
@@ -50,27 +40,46 @@ end
 
 -- plugins
 
----- Telescope
-vim.keymap.set("n", "<leader><leader>w", project_files)
-vim.keymap.set("n", "<leader><leader>b", project_buffers)
-vim.keymap.set("n", "<leader>w", function() telescope.find_files() end)
-vim.keymap.set("n", "<leader>b", function() telescope.buffers({ sort_mru = true }) end)
-vim.keymap.set("n", "<leader>ss", "<cmd>Telescope<CR>")
-vim.keymap.set("n", "<leader>sl", function() telescope.find_files({ cwd = "%:h" }) end)
-vim.keymap.set("n", "<leader>so", function() telescope.oldfiles() end)
-vim.keymap.set("n", "<leader>sd", function() telescope.diagnostics() end)
-vim.keymap.set("n", "<leader>s.", function() telescope.find_files({ cwd = "~/.dotfiles" }) end)
-vim.keymap.set("n", "<leader>/", search_buffer)
+--- Telescope
+vim.keymap.set("n", "<leader>t", "<cmd>Telescope<cr>")
 
----- conform
-set("n", "<leader>ff", format)
+---- files
+vim.keymap.set("n", "<leader>fp", project_files)
+vim.keymap.set("n", "<leader>fo", telescope.oldfiles)
+vim.keymap.set("n", "<leader>fg", telescope.git_status)
 
----- oil
-set("n", "-", "<cmd>Oil<cr>")
+vim.keymap.set("n", "<leader>fw", telescope.find_files)
+vim.keymap.set("n", "<leader>fbl", telescope.current_buffer_fuzzy_find)
 
----- zen mode
-set("n", "<leader>z", function() require("zen-mode").toggle() end)
+vim.keymap.set("n", "<leader>fl", function() telescope.find_files({ cwd = vim.fn.expand("%:p:h") }) end)
+vim.keymap.set("n", "<leader>f.", function() telescope.find_files({ cwd = "~/.dotfiles" }) end)
 
----- nvim-tree
-set("n", "\\", vim.cmd.NvimTreeFindFileToggle)
+vim.keymap.set("n", "<leader>fa", function()
+  telescope.find_files({
+    find_command = { "fd", "--hidden", "--no-ignore", "--max-depth", "3" },
+  })
+end)
+
+---- buffers
+vim.keymap.set("n", "<leader>bp", project_buffers)
+vim.keymap.set("n", "<leader>ba", function() telescope.buffers() end)
+vim.keymap.set("n", "<leader>bl", function() telescope.buffers({ cwd = vim.fn.expand("%:p:h") }) end)
+
+---- misc
+vim.keymap.set("n", "<leader>fs", telescope.lsp_document_symbols)
+
+--- gitsigns
+vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns<CR>")
+
+--- conform
+vim.keymap.set("n", "<leader>F", format)
+
+--- oil
+vim.keymap.set("n", "-", "<cmd>Oil<cr>")
+
+--- zen mode
+vim.keymap.set("n", "<leader>z", function() require("zen-mode").toggle() end)
+
+--- nvim-tree
+vim.keymap.set("n", "\\", vim.cmd.NvimTreeFindFileToggle)
 

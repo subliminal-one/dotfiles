@@ -2,20 +2,13 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 
 telescope.setup({
-  pickers = {
-    buffers = {
-      mappings = {
-        i = {
-          ["<c-d>"] = "delete_buffer",
-        },
-      },
-    },
-  },
   defaults = {
+    winblend = 10,
     mappings = {
       i = {
         ["<C-["] = actions.close,
         ["<ESC>"] = actions.close,
+        ["<C-u>"] = false,
       },
       n = {
         ["<C-["] = actions.close,
@@ -25,14 +18,25 @@ telescope.setup({
     layout_config = {
       horizontal = { width = 0.75 },
     },
+    file_ignore_patterns = {
+      "%.gif",
+      "%.svg",
+      "%.png",
+      "%.jpg",
+      "%.jpeg",
+    },
+  },
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        },
+      },
+    },
   },
   extensions = {
-    fzf = {
-      fuzzy = true, -- false will only do exact matching
-      override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = "smart_case", -- or "ignore_case" or "respect_case" the default case_mode is "smart_case"
-    },
+    fzf = {},
     ["ui-select"] = {
       require("telescope.themes").get_dropdown(),
     },
