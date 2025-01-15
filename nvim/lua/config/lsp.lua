@@ -15,7 +15,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
     vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts)
-    vim.keymap.set("n", "<space>fa", "<cmd>EslintFixAll<CR>", opts)
+    vim.keymap.set("n", "gra", function()
+      vim.lsp.buf.code_action()
+    end, opts)
+    vim.keymap.set("n", "grn", function()
+      vim.lsp.buf.rename()
+    end, opts)
+    vim.keymap.set("n", "<leader><leader>fa", "<cmd>EslintFixAll<CR>", opts)
   end,
 })
 
@@ -27,7 +33,17 @@ local servers = {
     },
   },
 
-  tsserver = {},
+  cssls = {
+    settings = {
+      css = {
+        validate = true,
+        lint = {
+          unknownAtRules = "ignore",
+        },
+      },
+    },
+  },
+  ts_ls = {},
   eslint = {},
   lua_ls = {
     settings = {
@@ -41,6 +57,18 @@ local servers = {
 
   tailwindcss = {
     filetypes = { "typescriptreact" },
+    settings = {
+      tailwindCSS = {
+        experimental = {
+          classRegex = {
+            {
+              "(?:twMerge|twJoin)\\(([^;]*)[\\);]",
+              "[`'\"`]([^'\"`;]*)[`'\"`]",
+            },
+          },
+        },
+      },
+    },
   },
 }
 

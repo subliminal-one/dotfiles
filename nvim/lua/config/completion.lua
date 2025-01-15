@@ -1,23 +1,19 @@
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.shortmess:append("c")
-
-local lspkind = require("lspkind")
-lspkind.init({})
+-- vim.opt.completeopt = { "menu", "menuone", "noselect" }
+-- vim.opt.shortmess:append("c")
 
 local cmp = require("cmp")
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.snippet.expand(args.body)
+      -- vim.snippet.expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
 
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-  }, {
-    { name = "path" },
-    { name = "buffer", keyword_length = 4 },
+    { name = "buffer", keyword_length = 3 },
   }),
 
   mapping = cmp.mapping.preset.insert({

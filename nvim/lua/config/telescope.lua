@@ -3,12 +3,12 @@ local actions = require("telescope.actions")
 
 telescope.setup({
   defaults = {
-    winblend = 10,
+    -- winblend = 10,
     mappings = {
       i = {
         ["<C-["] = actions.close,
         ["<ESC>"] = actions.close,
-        ["<C-u>"] = false,
+        -- ["<C-u>"] = false,
       },
       n = {
         ["<C-["] = actions.close,

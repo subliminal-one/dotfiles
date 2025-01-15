@@ -89,30 +89,30 @@ if [ $SESSION == "wellness" ]; then
     tmux select-window -t 1
   fi
 
-  if _should_create "$explorerBe"; then
-    cd ~/projects/wellness/wl-explorer-be
-    _create $explorerBe
-    tmux send-keys "nvim"
-    tmux new-window
-    tmux new-window
-    tmux send-keys "docker exec -it wl-explorer-be-laravel.test-1 bash"
-    tmux new-window
-    tmux move-window -t 9
-    tmux send-keys "docker-compose up"
-    tmux select-window -t 1
-  fi
-
-  if _should_create "$explorerFe"; then
-    cd ~/projects/wellness/wl-explorer-fe
-    _create $explorerFe
-    tmux send-keys "nvim"
-    tmux new-window
-    tmux new-window
-    tmux new-window
-    tmux move-window -t 9
-    tmux send-keys "npm run dev"
-    tmux select-window -t 1
-  fi
+  # if _should_create "$explorerBe"; then
+  #   cd ~/projects/wellness/wl-explorer-be
+  #   _create $explorerBe
+  #   tmux send-keys "nvim"
+  #   tmux new-window
+  #   tmux new-window
+  #   tmux send-keys "docker exec -it wl-explorer-be-laravel.test-1 bash"
+  #   tmux new-window
+  #   tmux move-window -t 9
+  #   tmux send-keys "docker-compose up"
+  #   tmux select-window -t 1
+  # fi
+  #
+  # if _should_create "$explorerFe"; then
+  #   cd ~/projects/wellness/wl-explorer-fe
+  #   _create $explorerFe
+  #   tmux send-keys "nvim"
+  #   tmux new-window
+  #   tmux new-window
+  #   tmux new-window
+  #   tmux move-window -t 9
+  #   tmux send-keys "npm run dev"
+  #   tmux select-window -t 1
+  # fi
 
   if _should_create "$widgets"; then
     cd ~/projects/wellness/wl-widgets-fe

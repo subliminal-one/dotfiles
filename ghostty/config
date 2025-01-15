@@ -1,0 +1,32 @@
+font-size=14
+font-feature=-calt
+font-feature=-liga
+font-feature=--dlig
+
+mouse-hide-while-typing=true
+
+adw-toolbar-style=flat
+theme=catppuccin-macchiato
+
+window-theme=ghostty
+window-decoration=false
+window-padding-balance=true
+window-width=4000
+window-height=4000
+
+keybind = alt+right=next_tab
+keybind = alt+left=previous_tab
+keybind = ctrl+shift+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+keybind = alt+one=unbind
+keybind = alt+two=unbind
+keybind = alt+three=unbind
+keybind = alt+four=unbind
+keybind = alt+five=unbind
+keybind = alt+six=unbind
+keybind = alt+seven=unbind
+keybind = alt+eight=unbind
+keybind = alt+nine=unbind
+
+
