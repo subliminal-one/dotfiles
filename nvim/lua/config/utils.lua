@@ -1,5 +1,3 @@
-local M = {}
-
 local file_exists = function(file)
   local fd = io.open(file, "r")
   return fd ~= nil and io.close(fd)
@@ -20,7 +18,7 @@ local is_project = function(dir)
   return false
 end
 
-M.find_project_dir = function()
+local find_project_dir = function()
   local cwd = vim.fn.getcwd()
   local buf_cwd = vim.fn.expand("%:p:h")
   local _, y = string.find(buf_cwd, cwd, 1, true)
@@ -45,6 +43,32 @@ M.find_project_dir = function()
   end
 
   return nil
+end
+
+local M = {}
+
+M.formatFile = function()
+  local result = require("conform").format({
+    async = false,
+    lsp_fallback = true,
+  })
+  if result == true then
+    vim.cmd.write()
+  end
+end
+
+M.findProjectFile = function()
+  Snacks.picker.files({ cwd = find_project_dir() })
+end
+
+M.findProjectBuffer = function()
+  Snacks.picker.buffers({ filter = { cwd = find_project_dir() } })
+end
+
+M.yankRelativePath = function()
+  local file_path = vim.fn.expand("%:.")
+  local relative_path = vim.fn.fnamemodify(file_path, ":.")
+  vim.fn.setreg("+", relative_path)
 end
 
 return M

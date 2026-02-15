@@ -90,7 +90,7 @@ return {
           -- map("n", "<leader>hu", gitsigns.undo_stage_hunk)
           -- map("n", "<leader>hR", gitsigns.reset_buffer)
           -- map("n", "<leader>hp", gitsigns.preview_hunk)
-          map("n", "<leader>hb", function()
+          map("n", "<leader>gb", function()
             gitsigns.blame_line({ full = true })
           end)
           -- map("n", "<leader>gtb", gitsigns.toggle_current_line_blame)

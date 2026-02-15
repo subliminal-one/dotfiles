@@ -4,14 +4,21 @@ return {
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     opts = {
+      formatters = {
+        clang_format = {
+          command = "clang-format",
+          append_args = { "--style", "Google" },
+        },
+      },
       formatters_by_ft = {
+        c = { "clang_format" },
         css = { "prettier", "trim_whitespace", "trim_newlines" },
         php = { "prettier", "trim_whitespace", "trim_newlines" },
         lua = { "stylua" },
-        html = { { "prettierd", "prettier" } },
+        html = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettier" },
-        yaml = { { "prettierd", "prettier" } },
-        -- markdown = { "prettier" },
+        yaml = { "prettierd", "prettier", stop_after_first = true },
+        markdown = { "prettier" },
         javascript = { "prettier", "trim_whitespace", "trim_newlines" },
         javascriptreact = { "prettier", "trim_whitespace", "trim_newlines" },
         typescript = { "prettier", "trim_whitespace", "trim_newlines" },

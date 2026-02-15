@@ -1,7 +1,5 @@
-local opts = { silent = true, nowait = true }
-local telescope = require("telescope.builtin")
 local utils = require("config.utils")
-
+local opts = { silent = true, nowait = true }
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set("x", "p", '"_dP')
@@ -11,98 +9,91 @@ vim.keymap.set("n", "<c-l>", "<c-w>l", opts)
 vim.keymap.set("n", "<c-j>", "<c-w>j", opts)
 vim.keymap.set("n", "<c-k>", "<c-w>k", opts)
 
-vim.keymap.set("n", "<c-left>", "<c-w>h", opts)
-vim.keymap.set("n", "<c-down>", "<c-w>j", opts)
-vim.keymap.set("n", "<c-up>", "<c-w>k", opts)
-vim.keymap.set("n", "<c-right>", "<c-w>l", opts)
+vim.keymap.set("n", "<c-Left>", "<c-w>h", opts)
+vim.keymap.set("n", "<c-Right>", "<c-w>l", opts)
+vim.keymap.set("n", "<c-Down>", "<c-w>j", opts)
+vim.keymap.set("n", "<c-Up>", "<c-w>k", opts)
 
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+vim.keymap.set("n", "<A-Left>", "10<c-w><", opts)
+vim.keymap.set("n", "<A-Right>", "10<c-w>>", opts)
+vim.keymap.set("n", "<A-Down>", "10<c-w>-", opts)
+vim.keymap.set("n", "<A-Up>", "10<c-w>+", opts)
 
-vim.keymap.set("n", "<Tab>", function() vim.cmd("tabnext") end, opts)
-vim.keymap.set("n", "<S-Tab>", function() vim.cmd("tabprev") end, opts)
 
--- helpers
+vim.keymap.set("n", "<Tab>", function()
+  vim.cmd("tabnext")
+end, opts)
 
-local function project_files()
-  local cwd = utils.find_project_dir()
-  telescope.find_files({ cwd = cwd })
+vim.keymap.set("n", "<S-Tab>", function()
+  vim.cmd("tabprev")
+end, opts)
+
+local findLocalFiles = function()
+  Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") })
 end
 
-local function project_buffers()
-  local cwd = utils.find_project_dir()
-  telescope.buffers({ cwd = cwd })
+local findDotFiles = function()
+  Snacks.picker.files({ cwd = vim.fn.expand("$HOME/.dotfiles") })
 end
 
-local function format()
-  local result = require("conform").format({ async = false, lsp_fallback = true })
-
-  if result == true then
-    vim.cmd.write()
-  end
+local findHiddenFiles = function()
+  Snacks.picker.files({ ignored = true, hidden = true })
 end
 
--- plugins
-
---- Telescope
-vim.keymap.set("n", "<leader>t", "<cmd>Telescope<cr>")
-
----- files
-vim.keymap.set("n", "<leader>w", telescope.find_files)
-vim.keymap.set("n", "<leader><leader>w", project_files)
-
-vim.keymap.set("n", "<leader>fo", telescope.oldfiles)
-vim.keymap.set("n", "<leader>fg", telescope.git_status)
-
-vim.keymap.set("n", "<leader>fbl", telescope.current_buffer_fuzzy_find)
-
-vim.keymap.set("n", "<leader>f.", function() telescope.find_files({ cwd = "~/.dotfiles" }) end)
-vim.keymap.set("n", "<leader>fl", function() telescope.find_files({ cwd = vim.fn.expand("%:p:h") }) end)
-
-vim.keymap.set("n", "<leader>fa", function()
-  telescope.find_files({
-    find_command = {
-      "fd",
-      "--type", "file",
-      "--hidden",
-      "--no-ignore",
-      "--exclude", "*.svg",
-      "--exclude", "*.gif",
-      "--exclude", "*.png",
-      "--exclude", "*.jpg",
-      "--exclude", "*.jpeg",
-      "--exclude", "*.min.js",
-      "--exclude", ".git/",
-      "--exclude", "dist/",
-      "--exclude", "vendor/",
-      "--exclude", "wl-sdk-js/",
-      "--exclude", "coverage/",
-      "--exclude", "storage/",
-      "--exclude", "node_modules/",
+local findLspSymbols = function()
+  Snacks.picker.lsp_symbols({
+    filter = {
+      default = {
+        -- "Class",
+        -- "Constructor",
+        "Constant",
+        -- "Enum",
+        -- "Field",
+        "Function",
+        -- "Interface",
+        "Method",
+        -- "Module",
+        -- "Namespace",
+        "Package",
+        -- "Property",
+        -- "Struct",
+        -- "Trait",
+      },
     },
   })
-end)
+end
 
----- buffers
-vim.keymap.set("n", "<leader>b", function() telescope.buffers({ sort_mru = true, sort_last_used = true }) end)
-vim.keymap.set("n", "<leader>B", function()
-  telescope.buffers({
-    sort_mru = true,
-    sort_last_used = true,
-    cwd = vim.fn.getcwd(),
-  })
-end)
-vim.keymap.set("n", "<leader><leader>b", project_buffers)
+require("which-key").add({
+  -- general
+  { "\\", vim.cmd.NvimTreeFindFileToggle, desc = "File Tree" },
+  { "<leader>e", vim.diagnostic.open_float, desc = "Diagnostic info"},
+  { "<leader>'f", utils.formatFile, mode = { "n", "v" }, desc = "Format file" },
+  { "<leader>yrp", utils.yankRelativePath, mode = { "n" }, desc = "Yank relative file path", },
 
----- misc
-vim.keymap.set("n", "<leader>fs", telescope.lsp_document_symbols)
+  -- workspace
+  {
+    mode = { "n" },
+    { "<leader>w", function() Snacks.picker.files() end, desc = "Files", },
+    { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers", },
+    { "<leader><leader>w", utils.findProjectFile, desc = "Project files" },
+    { "<leader><leader>b", utils.findProjectBuffer, desc = "Project buffers" },
+  },
 
---- gitsigns
-vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns<CR>")
-
---- conform
-vim.keymap.set("n", "<leader>F", format)
-
---- nvim-tree
-vim.keymap.set("n", "\\", vim.cmd.NvimTreeFindFileToggle)
-
+  -- snacks
+  {
+    mode = { "n" },
+    { "<leader>fp", function() Snacks.picker() end, desc = "Snacks Picker", },
+    { "<leader>f.", findDotFiles, desc = "Dotfiles" },
+    { "<leader>fl", findLocalFiles, desc = "Local files" },
+    { "<leader>fs", findLspSymbols, desc = "LSP symbols" },
+    { "<leader>fa", findHiddenFiles, desc = "Hidden files" },
+    { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer diagnostics" },
+    { "<leader>fo", function() Snacks.picker.recent() end, desc = "Recent files", },
+    { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log", },
+    { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff", },
+    { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status", },
+    { "<leader>gf", function() Snacks.picker.git_files() end, desc = "Find Git Files", },
+    { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Find Git Branch", },
+    { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "LSP References", },
+  },
+})

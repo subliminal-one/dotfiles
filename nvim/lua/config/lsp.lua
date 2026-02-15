@@ -1,50 +1,40 @@
-local lspconfig = require("lspconfig")
 local cmp_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_lsp.default_capabilities()
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(ev)
+  callback = function(args)
+    vim.lsp.document_color.enable(false)
+
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-    vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts)
-    vim.keymap.set("n", "gra", function()
-      vim.lsp.buf.code_action()
-    end, opts)
-    vim.keymap.set("n", "grn", function()
-      vim.lsp.buf.rename()
-    end, opts)
-    vim.keymap.set("n", "<leader><leader>fa", "<cmd>EslintFixAll<CR>", opts)
+    local opts = { buffer = args.buf }
+    vim.keymap.set("n", "grd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "<leader><leader>fa", "<cmd>LspEslintFixAll<CR>", opts)
   end,
 })
 
 local servers = {
-
   intelephense = {
     init_options = {
       licenceKey = vim.env.INTELEPHENSE_KEY,
     },
   },
 
-  cssls = {
-    settings = {
-      css = {
-        validate = true,
-        lint = {
-          unknownAtRules = "ignore",
-        },
-      },
-    },
-  },
+  -- cssls = {
+  --   settings = {
+  --     css = {
+  --       validate = true,
+  --       lint = {
+  --         unknownAtRules = "ignore",
+  --       },
+  --     },
+  --   },
+  -- },
+
   ts_ls = {},
   eslint = {},
+
   lua_ls = {
     settings = {
       Lua = {
@@ -74,5 +64,6 @@ local servers = {
 
 for server, config in pairs(servers) do
   config.capabilities = capabilities
-  lspconfig[server].setup(config)
+  vim.lsp.config(server, config)
+  vim.lsp.enable(server)
 end
